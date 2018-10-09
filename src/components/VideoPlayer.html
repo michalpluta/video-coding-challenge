@@ -1,0 +1,28 @@
+<div class="video-player-container">
+    <h1>Video Player with Youtube API</h1>
+    <h3>Here are a review of 2018 car, feel free to add your favourite cars...</h3>
+    <p>Notice: some Youtube videos are blocked for displaying in other services than Youtube</p>
+
+    <div class="player-wrapper" v-if="listItems.length">
+        <div class="player">
+            <youtube :video-id="itemId" ref="youtube" @ended="playNextItem()" :player-vars="playerVars"></youtube>
+        </div>
+    
+        <div class="player-items">
+            <ul>
+                <li v-for="(item, key) in listItems" :key="key" v-bind:class="{ active: isActiveItem(item) }">
+                    <span  @click="playItem(item)">{{item}}</span>
+                    <i class="fa fa-trash" @click="deleteItem(item)"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+            <h4>Add custom Youtube video</h4>
+            <input type="text" v-model="newItem" name="newItem">
+            <button @click="addItem" class="add">add</button>
+            <button @click="clearItemInput" class="clear">clear</button>
+            <p v-if="incorrectNewItem" class="failure"> Incorrect URL</p>
+    </div>
+</div>
